@@ -34,7 +34,7 @@ def done(request, id):
     todo_item.save()
     return redirect('home')
 
-def done(request, id):
+def undone(request, id):
     todo_item = todo.objects.get(id=id)
     todo_item.done = False
     todo_item.save()
