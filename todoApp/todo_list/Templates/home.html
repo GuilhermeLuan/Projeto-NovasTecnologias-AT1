@@ -3,9 +3,7 @@
 {% block content %}
     <h1>Todo List</h1>
 
-
     {% if todos %}
-
         <table class="table table-striped">
             <thead>
             <tr>
@@ -17,34 +15,51 @@
                 <th scope="col">Delete</th>
             </tr>
             </thead>
+            <tbody>
             {% for todo in todos %}
                 {% if todo.isCompleted %}
                     <tr class="table-success">
                         <td>{{ todo.id }}</td>
                         <td>{{ todo.title }}</td>
                         <td>
-                            <label>
-                                <input type="checkbox" checked>
-                            </label>
-                            {{ todo.completed }}
+                            <div class="form-check form-switch">
+                                <input class="form-check-input todo-checkbox"
+                                       type="checkbox"
+                                       role="switch"
+                                       id="flexSwitchCheckChecked-{{ todo.id }}"
+                                       checked
+                                       data-todo-id="{{ todo.id }}"
+                                       data-action="undone">
+                            </div>
                         </td>
-                        <td>{{ todo.created_at }}</td>
-                        <td><a href="#">Update</a></td>
-                        <td><a href="{% url 'delete' todo.id %}">Delete</a></td>
+                        <td>{{ todo.created_at|date:"d/m/Y H:i" }}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary">Update</button>
+                        </td>
+                        <td>
+                            <a href="{% url 'delete' todo.id %}">
+                                <button type="button" class="btn btn-danger">Delete</button>
+                            </a>
+                        </td>
                     </tr>
                 {% else %}
                     <tr>
                         <td>{{ todo.id }}</td>
                         <td>{{ todo.title }}</td>
                         <td>
-                            <label>
-                                <input type="checkbox">
-                            </label>
-                            {{ todo.completed }}
-
+                            <div class="form-check form-switch">
+                                <input class="form-check-input todo-checkbox"
+                                       type="checkbox"
+                                       role="switch"
+                                       id="flexSwitchCheckDefault-{{ todo.id }}"
+                                       data-todo-id="{{ todo.id }}"
+                                       data-action="done">
+                            </div>
                         </td>
-                        <td>{{ todo.created_at }}</td>
-                        <td><a href="#">Update</a></td>
+                        <td>{{ todo.created_at|date:"d/m/Y H:i" }}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary">Update</button>
+                        </td>
                         <td>
                             <a href="{% url 'delete' todo.id %}">
                                 <button type="button" class="btn btn-danger">Delete</button>
@@ -53,9 +68,31 @@
                     </tr>
                 {% endif %}
             {% endfor %}
+            </tbody>
         </table>
     {% else %}
         <p>No todos available.</p>
     {% endif %}
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.todo-checkbox').forEach(function(checkbox) {
+                checkbox.addEventListener('change', function() {
+                    const todoId = this.dataset.todoId;
+                    const action = this.dataset.action;
+
+                    // Constrói a URL baseada na ação
+                    let url;
+                    if (action === 'done') {
+                        url = `/done/${todoId}/`; // Ajuste para sua URL pattern
+                    } else {
+                        url = `/undone/${todoId}/`; // Ajuste para sua URL pattern
+                    }
+
+                    // Navega para a URL
+                    window.location.href = url;
+                });
+            });
+        });
+    </script>
 {% endblock %}

@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
+from django.views.decorators.cache import never_cache
+
 from .models import todo
 from .forms import TodoForm
 from django.contrib import messages
 
+@never_cache
 def home(request):
     if request.method == 'POST':
         form = TodoForm(request.POST or None)
@@ -29,12 +32,14 @@ def delete(request, id):
 
 def done(request, id):
     todo_item = todo.objects.get(id=id)
-    todo_item.done = True
+    todo_item.isCompleted = True
     todo_item.save()
+    messages.success(request, 'Todo marked as completed!')
+    print("Todo marked as completed!")
     return redirect('home')
 
 def undone(request, id):
     todo_item = todo.objects.get(id=id)
-    todo_item.done = False
+    todo_item.isCompleted = False
     todo_item.save()
     return redirect('home')
