@@ -3,7 +3,6 @@ from .models import todo
 from .forms import TodoForm
 from django.contrib import messages
 
-# Create your views here.
 def home(request):
     if request.method == 'POST':
         form = TodoForm(request.POST or None)
@@ -23,8 +22,8 @@ def about(request):
     return render(request, 'about.html', context )
 
 def delete(request, id):
-    todo = todo.objects.get(id=id)
-    todo.delete()
+    todos = todo.objects.get(id=id)
+    todos.delete()
     messages.success(request, 'Todo deleted successfully!')
     return redirect('home')
 

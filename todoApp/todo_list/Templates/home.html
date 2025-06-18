@@ -1,46 +1,61 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Todo List</h1>
+    <h1>Todo List</h1>
 
 
-{% if todos %}
+    {% if todos %}
 
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Title</th>
-            <th scope="col">Completed</th>
-            <th scope="col">Created At</th>
-            <th scope="col">Update</th>
-            <th scope="col">Delete</th>
-        </tr>
-    </thead>
-{% for todo in todos %}
-        {% if todo.isCompleted %}
-        <tr class="table-success">
-            <td>{{ todo.id }}</td>
-            <td>{{ todo.title }}</td>
-            <td>{{ todo.completed }}</td>
-            <td>{{ todo.created_at }}</td>
-            <td><a href="#">Update</a></td>
-            <td><a href="#">Delete</a></td>
-        </tr>
-        {% else %}
-        <tr>
-            <td>{{ todo.id }}</td>
-            <td>{{ todo.title }}</td>
-            <td>{{ todo.completed }}</td>
-            <td>{{ todo.created_at }}</td>
-            <td><a href="#">Update</a></td>
-            <td><a href="#">Delete</a></td>
-        </tr>
-        {% endif %}
-{% endfor %}
-</table>
-{% else %}
-<p>No todos available.</p>
-{% endif %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Completed</th>
+                <th scope="col">Created At</th>
+                <th scope="col">Update</th>
+                <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            {% for todo in todos %}
+                {% if todo.isCompleted %}
+                    <tr class="table-success">
+                        <td>{{ todo.id }}</td>
+                        <td>{{ todo.title }}</td>
+                        <td>
+                            <label>
+                                <input type="checkbox" checked>
+                            </label>
+                            {{ todo.completed }}
+                        </td>
+                        <td>{{ todo.created_at }}</td>
+                        <td><a href="#">Update</a></td>
+                        <td><a href="{% url 'delete' todo.id %}">Delete</a></td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td>{{ todo.id }}</td>
+                        <td>{{ todo.title }}</td>
+                        <td>
+                            <label>
+                                <input type="checkbox">
+                            </label>
+                            {{ todo.completed }}
+
+                        </td>
+                        <td>{{ todo.created_at }}</td>
+                        <td><a href="#">Update</a></td>
+                        <td>
+                            <a href="{% url 'delete' todo.id %}">
+                                <button type="button" class="btn btn-danger">Delete</button>
+                            </a>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No todos available.</p>
+    {% endif %}
 
 {% endblock %}
