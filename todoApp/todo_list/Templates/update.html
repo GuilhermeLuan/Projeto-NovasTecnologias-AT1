@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Update Todo: {{ todo.title }}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_title" class="form-label">Task name</label>
+            <input type="text" class="form-control" id="id_title" name="title" placeholder="Task name" value="{{ todo.title }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}

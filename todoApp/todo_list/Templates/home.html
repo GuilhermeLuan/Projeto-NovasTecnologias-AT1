@@ -7,7 +7,6 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th scope="col">#</th>
                 <th scope="col">Title</th>
                 <th scope="col">Completed</th>
                 <th scope="col">Created At</th>
@@ -19,7 +18,6 @@
             {% for todo in todos %}
                 {% if todo.isCompleted %}
                     <tr class="table-success">
-                        <td>{{ todo.id }}</td>
                         <td>{{ todo.title }}</td>
                         <td>
                             <div class="form-check form-switch">
@@ -34,7 +32,9 @@
                         </td>
                         <td>{{ todo.created_at|date:"d/m/Y H:i" }}</td>
                         <td>
-                            <button type="button" class="btn btn-primary">Update</button>
+                            <a href="{% url 'update' todo.id %}">
+                                <button type="button" class="btn btn-primary">Update</button>
+                            </a>
                         </td>
                         <td>
                             <a href="{% url 'delete' todo.id %}">
@@ -44,7 +44,6 @@
                     </tr>
                 {% else %}
                     <tr>
-                        <td>{{ todo.id }}</td>
                         <td>{{ todo.title }}</td>
                         <td>
                             <div class="form-check form-switch">
@@ -58,7 +57,9 @@
                         </td>
                         <td>{{ todo.created_at|date:"d/m/Y H:i" }}</td>
                         <td>
-                            <button type="button" class="btn btn-primary">Update</button>
+                            <a href="{% url 'update' todo.id %}">
+                                <button type="button" class="btn btn-primary">Update</button>
+                            </a>
                         </td>
                         <td>
                             <a href="{% url 'delete' todo.id %}">
@@ -75,9 +76,9 @@
     {% endif %}
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.todo-checkbox').forEach(function(checkbox) {
-                checkbox.addEventListener('change', function() {
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.todo-checkbox').forEach(function (checkbox) {
+                checkbox.addEventListener('change', function () {
                     const todoId = this.dataset.todoId;
                     const action = this.dataset.action;
 
