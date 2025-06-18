@@ -30,12 +30,23 @@ def delete(request, id):
     messages.success(request, 'Todo deleted successfully!')
     return redirect('home')
 
+def update(request, id):
+    todo_item = todo.objects.get(id=id)
+    form = TodoForm(request.POST or None, instance=todo_item)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Todo updated successfully!')
+            return redirect('home')
+
+    return render(request, 'update.html', {'form': form, 'todo': todo_item})
+
 def done(request, id):
     todo_item = todo.objects.get(id=id)
     todo_item.isCompleted = True
     todo_item.save()
     messages.success(request, 'Todo marked as completed!')
-    print("Todo marked as completed!")
     return redirect('home')
 
 def undone(request, id):
