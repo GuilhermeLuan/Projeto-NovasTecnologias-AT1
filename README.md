@@ -30,7 +30,7 @@ Siga as instruções abaixo para configurar e executar o projeto em seu ambiente
 
 1.  **Clone o repositório ou baixe o projeto**
 
-    Se o projeto estiver em um repositório Git, clone-o. Caso contrário, apenas navegue até o diretório raiz do projeto (`Projeto_AT1`).
+    Se o projeto estiver em um repositório Git, clone-o. Caso contrário, apenas navegue até o diretório raiz do projeto (`Projeto-NovasTecnologias-AT1`).
 
 2.  **Crie e ative um ambiente virtual**
 
