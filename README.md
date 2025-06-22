@@ -6,8 +6,8 @@ Este é um simples projeto de uma aplicação de lista de tarefas (To-Do List) d
 
 - Adicionar novas tarefas.
 - Listar todas as tarefas.
-- Marcar tarefas como concluídas (funcionalidade a ser implementada).
-- Remover tarefas (funcionalidade a ser implementada).
+- Marcar tarefas como concluídas.
+- Remover tarefas.
 
 ## Tecnologias Utilizadas
 
@@ -38,7 +38,7 @@ Siga as instruções abaixo para configurar e executar o projeto em seu ambiente
 
     ```bash
     # Navegue até a pasta do projeto (ex: Projeto_AT1)
-    cd caminho/para/Projeto_AT1
+    cd .\Projeto-NovasTecnologias-AT1\
 
     # Crie o ambiente virtual
     python -m venv venv
@@ -57,7 +57,6 @@ Siga as instruções abaixo para configurar e executar o projeto em seu ambiente
     ```bash
     pip install Django
     ```
-    *(Nota: Para projetos maiores, as dependências geralmente são listadas em um arquivo `requirements.txt`)*
 
 4.  **Aplique as migrações do banco de dados**
 
